@@ -53,7 +53,7 @@ BREVE DESCRICAO:
 #define C 3 // Representa uma base Citosina
 #define X 4 // Representa um gap
 
-#define sair 11 // Opcao de saida do programa
+#define sair 12 // Opcao de saida do programa
 
 #define maxSeq 1000 // Tamanho maximo de bases em uma sequencia genomica
 
@@ -738,20 +738,28 @@ int menuOpcao(void)
   char enter;
   do
   {
-    printf("\nMenu de Opcao:");
-    printf("\n<01> Ler Matriz de Pesos");
-    printf("\n<02> Mostrar Matriz de Pesos");
-    printf("\n<03> Ler Penalidade de Gap");
-    printf("\n<04> Mostrar Penalidade");
-    printf("\n<05> Definir Sequencias Genomicas");
-    printf("\n<06> Mostrar Sequencias");
-    printf("\n<07> Gerar Matriz de Escores");
-    printf("\n<08> Mostrar Matriz de Escores");
-    printf("\n<09> Gravar Matriz de Escores em Arquivo"); // Nova opção adicionada
-    printf("\n<10> Gerar Alinhamento Global");
-    printf("\n<11> Mostrar Alinhamento Global");
-    printf("\n<12> Sair");
-    printf("\nDigite a opcao => ");
+    printf("\n====================================================");
+    printf("\n||      <01> Ler Matriz de Pesos                  ||");
+    printf("\n||      <02> Mostrar Matriz de Pesos              ||");
+    printf("\n||      <03> Ler Penalidade de Gap                ||");
+    printf("\n||      <04> Mostrar Penalidade                   ||");
+    printf("\n||      <05> Definir Sequencias Genomicas         ||");
+    printf("\n||      <06> Mostrar Sequencias                   ||");
+    printf("\n||      <07> Gerar Matriz de Escores              ||");
+    printf("\n||      <08> Mostrar Matriz de Escores            ||");
+    printf("\n||      <09> Gravar Matriz de Escores em Arquivo  ||"); // Nova opção adicionada
+    printf("\n||      <10> Gerar Alinhamento Global             ||");
+    printf("\n||      <11> Mostrar Alinhamento Global           ||");
+    printf("\n||      <12> Sair                                 ||");
+    printf("\n====================================================");
+    printf("\n");
+    printf("Threads = %d\n", num_threads);
+    printf("Penalidade de Gap = %d\n", penalGap);
+    printf("Grau de Mutacao = %d\n", grauMuta);
+
+    printf("\n");
+
+    printf("\nSelecione => ");
     scanf("%d", &op);
     scanf("%c", &enter);
   } while ((op < 1) || (op > sair));
@@ -785,7 +793,7 @@ void trataOpcao(int op)
     {
       leSequencias();
     }
-    else
+    else if (resp == 2)
     {
       leTamMaior();
       leTamMenor();
@@ -821,6 +829,13 @@ void trataOpcao(int op)
   }
 }
 
+void program_title_hud()
+{
+  printf("\n====================================================");
+  printf("\n||      ***** Needleman-Wunsch Sequencial *****   ||");
+  printf("\n====================================================");
+}
+
 /* programa principal */
 void main(void)
 {
@@ -832,7 +847,7 @@ void main(void)
 
   do
   {
-    printf("\n\nPrograma Needleman-Wunsch Sequencial\n");
+    program_title_hud();
     opcao = menuOpcao();
     trataOpcao(opcao);
 
