@@ -8,8 +8,6 @@ Este repositório contém a implementação do algoritmo de Needleman-Wunsch par
 ### Enunciado do Problema
 Desenvolver uma versão multi-thread da aplicação de reconhecimento de genoma fornecida pelo professor. NÃO É PERMITIDA a utilização de outra aplicação de base, apenas a fornecida pelo professor.
 
-Busque informações complementares na internet sobre como funciona o método.
-
 ### Diretrizes
 - Permitir que o usuário defina os tamanhos das sequências a serem comparadas, que poderão ser da ordem de milhares de bases.
 - Permitir que as sequências de bases possam ser geradas aleatoriamente, fornecidas em arquivos ou lidas a partir do teclado, todas as 3 opções. Na geração aleatória, gera-se a primeira sequência aleatória e com base nesta, cria a segunda sequência. A segunda sequência deve ser retirada da primeira e deve sofrer um percentual de alterações, para ficarem com certo grau de similaridade. O percentual de alterações deve ser fornecido pelo usuário. No fornecimento por arquivo ou na leitura pelo teclado, as duas sequências devem ser fornecidas pelo usuário.
