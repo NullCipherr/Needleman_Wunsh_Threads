@@ -6,7 +6,7 @@ Este repositório contém a implementação do algoritmo de Needleman-Wunsch par
 ## 📜 Especificação 
 
 ### Enunciado do Problema
-Desenvolver uma versão multi-thread da aplicação de reconhecimento de genoma fornecida pelo professor. NÃO É PERMITIDA a utilização de outra aplicação de base, apenas a fornecida pelo professor.
+Desenvolver uma versão multi-thread da aplicação de reconhecimento de genoma fornecida pelo professor.
 
 ### Diretrizes
 - Permitir que o usuário defina os tamanhos das sequências a serem comparadas, que poderão ser da ordem de milhares de bases.
