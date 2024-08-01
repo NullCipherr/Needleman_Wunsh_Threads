@@ -24,12 +24,3 @@ Desenvolver uma versão multi-thread da aplicação de reconhecimento de genoma 
   2. A reconstrução das sequências alinhadas deve ser paralelizada em até k threads. Tal paralelização deve ser feita quando houver mais que uma possibilidade de traceback, ainda que com scores diferentes, com isso, o programa deverá mostrar até k pares de alinhamentos.
 
 Atenção: a paralelização deve ocorrer no preenchimento da matriz de scores e na reconstrução dos até k pares de alinhamentos possíveis. A versão paralela deve possuir as mesmas funcionalidades e características da versão sequencial.
-
-## 📚 Conteúdo
-O repositório está organizado em diferentes seções, cada uma focada em um aspecto específico da implementação do algoritmo de Needleman-Wunsch com multithreading:
-  - 🌟 **Introdução ao Algoritmo**: Explicação básica do algoritmo de Needleman-Wunsch e seu uso no alinhamento de sequências.
-  - 🧵 **Multithreading**: Exemplos e exercícios que demonstram como implementar multithreading para acelerar o processo de alinhamento de sequências.
-  - 🔄 **Gestão de Threads**: Técnicas para gerenciar o ciclo de vida das threads, incluindo criação, sincronização e término.
-  - 🔒 **Sincronização de Threads**: Demonstrações de como evitar condições de corrida e garantir a exclusão mútua em acessos concorrentes a recursos compartilhados.
-  - 📊 **Exemplos Práticos**: Códigos de exemplo que ilustram a implementação do algoritmo de Needleman-Wunsch com multithreading em diferentes linguagens de programação.
-  - 📋 **Estudo de Casos**: Análise de problemas reais e como resolvê-los utilizando o algoritmo de Needleman-Wunsch com multithreading, com aplicações em bioinformática
