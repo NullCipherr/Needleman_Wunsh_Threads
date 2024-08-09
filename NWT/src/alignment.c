@@ -5,7 +5,6 @@
 
 #include "constants.h"
 #include "globals.h"
-#include "globals.c"
 
 void traceBack(int tipo) 
 {

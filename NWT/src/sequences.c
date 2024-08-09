@@ -14,7 +14,7 @@ int leTamMaior(void) {
 }
 
 int leTamMenor(void) {
-    printf("\nLeitura do Tamanho da Sequencia Menor:");#include "constants.h"
+    printf("\nLeitura do Tamanho da Sequencia Menor:");
     do {
         printf("\nDigite 0 < valor <= %d = ", tamSeqMaior);
         scanf("%d", &tamSeqMenor);

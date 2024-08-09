@@ -3,12 +3,12 @@
 #include <string.h>
 #include <pthread.h>
 #include <time.h>
+
 #include "constants.h"
 #include "globals.h"
-#include "menu.c"
 
 
-// Protótipos das funções
+// // Protótipos das funções
 int menuOpcao(void);
 void trataOpcao(int op);
 void program_title_hud();
