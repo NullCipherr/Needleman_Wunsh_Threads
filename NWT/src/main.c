@@ -5,6 +5,8 @@
 #include <time.h>
 #include "constants.h"
 #include "globals.h"
+#include "menu.c"
+
 
 // Protótipos das funções
 int menuOpcao(void);

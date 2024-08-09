@@ -18,7 +18,12 @@ int grauMuta = 0;
 int escoreDiag;
 int escoreLin;
 int escoreCol;
-int matrizPesos[4][4] = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
+int matrizPesos[4][4] = {
+    {1, 0, 0, 0},
+    {0, 1, 0, 0},
+    {0, 0, 1, 0},
+    {0, 0, 0, 1}
+};
 int indRef = -1;
 int nTrocas = -1;
 int linPMaior, colPMaior, PMaior;
