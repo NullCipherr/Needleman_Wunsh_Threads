@@ -5,19 +5,23 @@
 #include "constants.h"
 #include "globals.h"
 
-typedef struct {
+typedef struct
+{
     int start;
     int end;
 } ThreadArgs;
 
-void *fill_part(void *arg) {
+void *preenche_matriz(void *arg)
+{
     ThreadArgs *args = (ThreadArgs *)arg;
     int start = args->start;
     int end = args->end;
     int lin, col, peso;
 
-    for (lin = start; lin <= end; lin++) {
-        for (col = 1; col <= tamSeqMaior; col++) {
+    for (lin = start; lin <= end; lin++)
+    {
+        for (col = 1; col <= tamSeqMaior; col++)
+        {
             pthread_mutex_lock(&mutex); // Bloqueia o mutex
             peso = matrizPesos[(seqMenor[lin - 1])][(seqMaior[col - 1])];
             escoreDiag = matrizEscores[lin - 1][col - 1] + peso;
@@ -37,7 +41,8 @@ void *fill_part(void *arg) {
     pthread_exit(NULL);
 }
 
-void geraMatrizEscores(void) {
+void geraMatrizEscores(void)
+{
     int lin, col, peso;
     pthread_t threads[num_threads];
     ThreadArgs args[num_threads];
@@ -51,15 +56,17 @@ void geraMatrizEscores(void) {
     for (lin = 0; lin <= tamSeqMenor; lin++)
         matrizEscores[lin][0] = -1 * (lin * penalGap);
 
-    for (int i = 0; i < num_threads; i++) {
+    for (int i = 0; i < num_threads; i++)
+    {
         args[i].start = i * chunk_size + 1;
         args[i].end = (i + 1) * chunk_size + 1;
         if (i == num_threads - 1)
             args[i].end = tamSeqMenor + 1;
-        pthread_create(&threads[i], NULL, fill_part, (void *)&args[i]);
+        pthread_create(&threads[i], NULL, preenche_matriz, (void *)&args[i]);
     }
 
-    for (int i = 0; i < num_threads; i++) {
+    for (int i = 0; i < num_threads; i++)
+    {
         pthread_join(threads[i], NULL);
     }
 
@@ -71,14 +78,18 @@ void geraMatrizEscores(void) {
     colUMaior = 1;
     UMaior = matrizEscores[1][1];
 
-    for (lin = 1; lin <= tamSeqMenor; lin++) {
-        for (col = 1; col <= tamSeqMaior; col++) {
-            if (PMaior < matrizEscores[lin][col]) {
+    for (lin = 1; lin <= tamSeqMenor; lin++)
+    {
+        for (col = 1; col <= tamSeqMaior; col++)
+        {
+            if (PMaior < matrizEscores[lin][col])
+            {
                 linPMaior = lin;
                 colPMaior = col;
                 PMaior = matrizEscores[lin][col];
             }
-            if (UMaior <= matrizEscores[lin][col]) {
+            if (UMaior <= matrizEscores[lin][col])
+            {
                 linUMaior = lin;
                 colUMaior = col;
                 UMaior = matrizEscores[lin][col];
@@ -90,12 +101,14 @@ void geraMatrizEscores(void) {
     printf("\nUltimo Maior escore = %d na celula [%d,%d]", UMaior, linUMaior, colUMaior);
 }
 
-void gravaMatrizEscores() {
+void gravaMatrizEscores()
+{
     FILE *file;
     int i, lin, col;
 
     file = fopen("matriz_escores.txt", "w");
-    if (file == NULL) {
+    if (file == NULL)
+    {
         printf("\nErro ao abrir o arquivo para escrita.");
         return;
     }
@@ -117,9 +130,11 @@ void gravaMatrizEscores() {
         fprintf(file, "%4d", matrizEscores[0][col]);
     fprintf(file, "\n");
 
-    for (lin = 1; lin <= tamSeqMenor; lin++) {
+    for (lin = 1; lin <= tamSeqMenor; lin++)
+    {
         fprintf(file, "%4d%4c", lin, mapaBases[(seqMenor[lin - 1])]);
-        for (col = 0; col <= tamSeqMaior; col++) {
+        for (col = 0; col <= tamSeqMaior; col++)
+        {
             fprintf(file, "%4d", matrizEscores[lin][col]);
         }
         fprintf(file, "\n");
@@ -129,7 +144,8 @@ void gravaMatrizEscores() {
     printf("\nMatriz de escores gravada em 'matriz_escores.txt'.");
 }
 
-void mostraMatrizEscores() {
+void mostraMatrizEscores()
+{
     int i, lin, col;
 
     printf("\nMatriz de escores Atual:\n");
@@ -149,9 +165,11 @@ void mostraMatrizEscores() {
         printf("%4d", matrizEscores[0][col]);
     printf("\n");
 
-    for (lin = 1; lin <= tamSeqMenor; lin++) {
+    for (lin = 1; lin <= tamSeqMenor; lin++)
+    {
         printf("%4d%4c", lin, mapaBases[(seqMenor[lin - 1])]);
-        for (col = 0; col <= tamSeqMaior; col++) {
+        for (col = 0; col <= tamSeqMaior; col++)
+        {
             printf("%4d", matrizEscores[lin][col]);
         }
         printf("\n");

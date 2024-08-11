@@ -6,17 +6,17 @@
 #include "constants.h"
 #include "globals.h"
 
-void traceBack(int tipo) 
+void traceBack(int tipo)
 {
-    int tbLin, tbCol, peso, pos, posAux, aux, i;
+    int tbLin, tbCol, peso, pos, aux, i;
 
-    if (tipo == 1) 
+    if (tipo == 1)
     {
         printf("\nGeracao do Primeiro Maior Alinhamento Global:\n");
         tbLin = linPMaior;
         tbCol = colPMaior;
-    } 
-    else 
+    }
+    else
     {
         printf("\nGeracao do Ultimo Maior Alinhamento Global:\n");
         tbLin = linUMaior;
@@ -24,17 +24,17 @@ void traceBack(int tipo)
     }
 
     pos = 0;
-    do 
+    do
     {
-        pthread_mutex_lock(&mutex); // Lock mutex
+        pthread_mutex_lock(&mutex); // Bloqueia o mutex
         peso = matrizPesos[(seqMenor[tbLin - 1])][(seqMaior[tbCol - 1])];
         escoreDiag = matrizEscores[tbLin - 1][tbCol - 1] + peso;
         escoreLin = matrizEscores[tbLin][tbCol - 1] - penalGap;
         escoreCol = matrizEscores[tbLin - 1][tbCol] - penalGap;
 
-        if ((escoreDiag > escoreLin) && (escoreDiag > escoreCol)) 
+        if ((escoreDiag > escoreLin) && (escoreDiag > escoreCol))
         {
-            if (seqMenor[tbLin - 1] != seqMaior[tbCol - 1]) 
+            if (seqMenor[tbLin - 1] != seqMaior[tbCol - 1])
             {
                 printf("\nALERTA no TraceBack: Pos = %d Lin = %d e Col = %d\n", pos, tbLin, tbCol);
 
@@ -47,8 +47,8 @@ void traceBack(int tipo)
                 alinhaGMaior[pos] = X;
                 tbLin--;
                 pos++;
-            } 
-            else 
+            }
+            else
             {
                 alinhaGMenor[pos] = seqMenor[tbLin - 1];
                 tbLin--;
@@ -56,25 +56,25 @@ void traceBack(int tipo)
                 tbCol--;
                 pos++;
             }
-        } 
-        else if (escoreLin >= escoreCol) 
+        }
+        else if (escoreLin >= escoreCol)
         {
             alinhaGMenor[pos] = X;
             alinhaGMaior[pos] = seqMaior[tbCol - 1];
             tbCol--;
             pos++;
-        } 
-        else 
+        }
+        else
         {
             alinhaGMenor[pos] = seqMenor[tbLin - 1];
             alinhaGMaior[pos] = X;
             tbLin--;
             pos++;
         }
-        pthread_mutex_unlock(&mutex); // Unlock mutex
+        pthread_mutex_unlock(&mutex); // Desbloqueia o mutex
     } while ((tbLin != 0) && (tbCol != 0));
 
-    while (tbLin > 0) 
+    while (tbLin > 0)
     {
         alinhaGMenor[pos] = seqMenor[tbLin - 1];
         alinhaGMaior[pos] = X;
@@ -82,7 +82,7 @@ void traceBack(int tipo)
         pos++;
     }
 
-    while (tbCol > 0) 
+    while (tbCol > 0)
     {
         alinhaGMenor[pos] = X;
         alinhaGMaior[pos] = seqMaior[tbCol - 1];
@@ -92,7 +92,7 @@ void traceBack(int tipo)
 
     tamAlinha = pos;
 
-    for (i = 0; i < (tamAlinha / 2); i++) 
+    for (i = 0; i < (tamAlinha / 2); i++)
     {
         aux = alinhaGMenor[i];
         alinhaGMenor[i] = alinhaGMenor[tamAlinha - i - 1];
@@ -106,7 +106,7 @@ void traceBack(int tipo)
     printf("\nAlinhamento Global Gerado.");
 }
 
-void mostraAlinhamentoGlobal(void) 
+void mostraAlinhamentoGlobal(void)
 {
     int i;
 
