@@ -98,6 +98,7 @@ void leSequencias(void) {
     } while (erro == 1);
 }
 
+// Função para ler as sequências de um arquivo
 void leSequenciasDeArquivo(void) {
     FILE *file;
     char filename[100];
@@ -114,6 +115,7 @@ void leSequenciasDeArquivo(void) {
 
     printf("\nLeitura das Sequencias do Arquivo:\n");
 
+    // Lê os tamanhos das sequências do arquivo
     fscanf(file, "%d %d", &tamSeqMaior, &tamSeqMenor);
     if (tamSeqMaior > maxSeq || tamSeqMenor > maxSeq || tamSeqMenor > tamSeqMaior) {
         printf("\nErro nos tamanhos das sequencias.");
@@ -121,10 +123,12 @@ void leSequenciasDeArquivo(void) {
         return;
     }
 
+    // Lê a sequência maior do arquivo
     for (i = 0; i < tamSeqMaior; i++) {
         fscanf(file, " %c", &mapaBases[seqMaior[i]]);
     }
 
+    // Lê a sequência menor do arquivo
     for (i = 0; i < tamSeqMenor; i++) {
         fscanf(file, " %c", &mapaBases[seqMenor[i]]);
     }
@@ -132,6 +136,7 @@ void leSequenciasDeArquivo(void) {
     fclose(file);
 }
 
+// Função para gerar sequências aleatórias
 void geraSequencias(void) 
 {
     int i, dif, probAux;
@@ -139,9 +144,9 @@ void geraSequencias(void)
 
     printf("\nGeracao Aleatoria das Sequencias:\n");
 
-    // gerando a sequencia maior
+    // Gerando a sequencia maior
     for (i = 0; i < tamSeqMaior; i++) {
-        base = rand() % 4; // produz valores de 0 a 3
+        base = rand() % 4; // Produz valores de 0 a 3
         seqMaior[i] = base;
     }
 
