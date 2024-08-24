@@ -1,28 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "constants.h"
 #include "globals.h"
 
-int leTamMaior(void) {
+int leTamMaior(void)
+{
     printf("\nLeitura do Tamanho da Sequencia Maior:");
-    do {
+    do
+    {
         printf("\nDigite 0 < valor < %d = ", maxSeq);
         scanf("%d", &tamSeqMaior);
     } while ((tamSeqMaior < 1) || (tamSeqMaior > maxSeq));
     return tamSeqMaior;
 }
 
-int leTamMenor(void) {
+int leTamMenor(void)
+{
     printf("\nLeitura do Tamanho da Sequencia Menor:");
-    do {
+    do
+    {
         printf("\nDigite 0 < valor <= %d = ", tamSeqMaior);
         scanf("%d", &tamSeqMenor);
     } while ((tamSeqMenor < 1) || (tamSeqMenor > tamSeqMaior));
     return tamSeqMenor;
 }
 
-void leSequencias(void) {
+void leSequencias(void)
+{
     int i, erro;
     char seqMaiorAux[maxSeq], seqMenorAux[maxSeq];
 
@@ -31,10 +37,12 @@ void leSequencias(void) {
     printf("\nLeitura das Sequencias:\n");
 
     // lendo a sequencia maior
-    do {
+    do
+    {
         printf("\nPara a Sequencia Maior,");
         printf("\nDigite apenas caracteres 'A', 'T', 'G' e 'C'");
-        do {
+        do
+        {
             printf("\n> ");
             fgets(seqMaiorAux, maxSeq, stdin);
             tamSeqMaior = strlen(seqMaiorAux) - 1; // remove o enter
@@ -42,8 +50,10 @@ void leSequencias(void) {
         printf("\ntamSeqMaior = %d\n", tamSeqMaior);
         i = 0;
         erro = 0;
-        do {
-            switch (seqMaiorAux[i]) {
+        do
+        {
+            switch (seqMaiorAux[i])
+            {
             case 'A':
                 seqMaior[i] = A;
                 break;
@@ -64,10 +74,12 @@ void leSequencias(void) {
     } while (erro == 1);
 
     // lendo a sequencia menor
-    do {
+    do
+    {
         printf("\nPara a Sequencia Menor, ");
         printf("\nDigite apenas caracteres 'A', 'T', 'G' e 'C'");
-        do {
+        do
+        {
             printf("\n> ");
             fgets(seqMenorAux, maxSeq, stdin);
             tamSeqMenor = strlen(seqMenorAux) - 1; // remove o enter
@@ -76,8 +88,10 @@ void leSequencias(void) {
 
         i = 0;
         erro = 0;
-        do {
-            switch (seqMenorAux[i]) {
+        do
+        {
+            switch (seqMenorAux[i])
+            {
             case 'A':
                 seqMenor[i] = A;
                 break;
@@ -99,16 +113,19 @@ void leSequencias(void) {
 }
 
 // Função para ler as sequências de um arquivo
-void leSequenciasDeArquivo(void) {
+void leSequenciasDeArquivo(void)
+{
     FILE *file;
     char filename[100];
     int i;
+    char base;
 
     printf("\nDigite o nome do arquivo: ");
     scanf("%s", filename);
 
     file = fopen(filename, "r");
-    if (file == NULL) {
+    if (file == NULL)
+    {
         printf("\nErro ao abrir o arquivo.");
         return;
     }
@@ -117,27 +134,89 @@ void leSequenciasDeArquivo(void) {
 
     // Lê os tamanhos das sequências do arquivo
     fscanf(file, "%d %d", &tamSeqMaior, &tamSeqMenor);
-    if (tamSeqMaior > maxSeq || tamSeqMenor > maxSeq || tamSeqMenor > tamSeqMaior) {
+    if (tamSeqMaior > maxSeq || tamSeqMenor > maxSeq || tamSeqMenor > tamSeqMaior)
+    {
         printf("\nErro nos tamanhos das sequencias.");
         fclose(file);
         return;
     }
 
     // Lê a sequência maior do arquivo
-    for (i = 0; i < tamSeqMaior; i++) {
-        fscanf(file, " %c", &mapaBases[seqMaior[i]]);
+    for (i = 0; i < tamSeqMaior; i++)
+    {
+        fscanf(file, " %c", &base);
+        switch (base)
+        {
+        case 'A':
+            seqMaior[i] = A;
+            break;
+        case 'T':
+            seqMaior[i] = T;
+            break;
+        case 'G':
+            seqMaior[i] = G;
+            break;
+        case 'C':
+            seqMaior[i] = C;
+            break;
+        default:
+            printf("\nErro: Caractere invalido na sequencia maior.");
+            fclose(file);
+            return;
+        }
     }
 
     // Lê a sequência menor do arquivo
-    for (i = 0; i < tamSeqMenor; i++) {
-        fscanf(file, " %c", &mapaBases[seqMenor[i]]);
+    for (i = 0; i < tamSeqMenor; i++)
+    {
+        fscanf(file, " %c", &base);
+        switch (base)
+        {
+        case 'A':
+            seqMenor[i] = A;
+            break;
+        case 'T':
+            seqMenor[i] = T;
+            break;
+        case 'G':
+            seqMenor[i] = G;
+            break;
+        case 'C':
+            seqMenor[i] = C;
+            break;
+        default:
+            printf("\nErro: Caractere invalido na sequencia menor.");
+            fclose(file);
+            return;
+        }
     }
 
     fclose(file);
+
+    // Calcula indRef e nTrocas com base nas sequências lidas
+    int dif = tamSeqMaior - tamSeqMenor;
+    indRef = 0; // Aqui você pode definir indRef de acordo com a lógica específica do seu problema
+    if (dif > 0)
+    {
+        // Calcula um índice aleatório para a referência
+        indRef = rand() % dif;
+    }
+
+    // Calcula nTrocas: Vamos assumir que você deseja contar quantos caracteres da sequência menor são diferentes dos caracteres correspondentes na sequência maior
+    nTrocas = 0;
+    for (i = 0; i < tamSeqMenor; i++)
+    {
+        if (seqMenor[i] != seqMaior[indRef + i])
+        {
+            nTrocas++;
+        }
+    }
+
+    printf("\nSequencias Lidas: IndRef = %d, NTrocas = %d\n", indRef, nTrocas);
 }
 
 // Função para gerar sequências aleatórias
-void geraSequencias(void) 
+void geraSequencias(void)
 {
     int i, dif, probAux;
     char base;
@@ -145,7 +224,8 @@ void geraSequencias(void)
     printf("\nGeracao Aleatoria das Sequencias:\n");
 
     // Gerando a sequencia maior
-    for (i = 0; i < tamSeqMaior; i++) {
+    for (i = 0; i < tamSeqMaior; i++)
+    {
         base = rand() % 4; // Produz valores de 0 a 3
         seqMaior[i] = base;
     }
@@ -173,10 +253,12 @@ void geraSequencias(void)
 
     i = 0;
     nTrocas = 0;
-    while ((i < tamSeqMenor) && (nTrocas < ((grauMuta * tamSeqMenor) / 100))) {
+    while ((i < tamSeqMenor) && (nTrocas < ((grauMuta * tamSeqMenor) / 100)))
+    {
         probAux = rand() % 100 + 1;
 
-        if (probAux <= grauMuta) {
+        if (probAux <= grauMuta)
+        {
             seqMenor[i] = (seqMenor[i] + (rand() % 3) + 1) % 4;
             nTrocas++;
         }
@@ -186,7 +268,8 @@ void geraSequencias(void)
     printf("\nSequencias Geradas: Dif = %d, IndRef = %d, NTrocas = %d\n ", dif, indRef, nTrocas);
 }
 
-void mostraSequencias(void) {
+void mostraSequencias(void)
+{
     int i;
 
     printf("\nSequencias Atuais:\n");

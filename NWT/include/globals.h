@@ -3,6 +3,7 @@
 
 // Inclui a biblioteca pthread.h para suporte a threads POSIX
 #include <pthread.h>
+
 // Inclui o arquivo constants.h, que contém definições de constantes
 #include "constants.h"
 
